@@ -28,9 +28,9 @@ def scrape():
     news_url = 'https://redplanetscience.com/'
     browser.visit(news_url)
     news_html = browser.html
-    news_soup = bs(news_html,'lxml')
+    news_soup = bs(news_html,"html.parser")
     news_title = news_soup.find("div",class_="content_title").text
-    news_para = news_soup.find("div", class_="rollover_description_inner").text
+    news_para = news_soup.find("div", class_="article_teaser_body").text
 
     # JPL Mars Space Images - Featured Image
     jurl = 'https://spaceimages-mars.com/'
@@ -41,11 +41,12 @@ def scrape():
     featured_image_url = "https://spaceimages-mars.com/" + image_url
 
     # Mars fact
-    murl = 'https://space-facts.com/mars/'
+    murl = 'https://galaxyfacts-mars.com/'
     table = pd.read_html(murl)
     mars_df = table[0]
-    mars_df =  mars_df[['Mars - Earth Comparison', 'Mars']]
-    mars_fact_html = mars_df.to_html(header=False, index=False)
+    marsclean= mars_df.set_axis(["0", "Mars" , "Earth" ], axis=1, inplace=False)
+    mars_df2 =  marsclean[['0', 'Mars']]
+    mars_fact_html = mars_df2.to_html(header=False, index=False)
 
     # Mars Hemispheres
     mhurl = 'https://marshemispheres.com/'
