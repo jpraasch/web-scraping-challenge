@@ -65,15 +65,10 @@ def scrape():
             soup= bs(html, "html.parser")
             downloads = soup.find("div", class_="downloads")
             image_url = downloads.find("a")["href"]
+            imageshow = "https://marshemispheres.com/" + image_url
             product_dict['title']= titles
-            product_dict['image_url']= image_url
+            product_dict['imageshow']= imageshow
             hemisphere_image_urls.append(product_dict)
-
-
-
-
-
-
 
 
     
