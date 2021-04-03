@@ -6,7 +6,6 @@ import pandas as pd
 import time
 
 
-
 # DB Setup
 # 
 
@@ -40,16 +39,13 @@ def scrape():
     jpl_soup = bs(jhtml,"html.parser")
     image_url = jpl_soup.find("img", class_="headerimage fade-in")["src"]
     featured_image_url = "https://spaceimages-mars.com/" + image_url
-    return featured_image_url
-    
+
     # Mars fact
-    murl = 'https://galaxyfacts-mars.com/'
+    murl = 'https://space-facts.com/mars/'
     table = pd.read_html(murl)
     mars_df = table[0]
-    marsclean= mars_df.set_axis(["Mars - Earth Comparison", "Mars" , "Earth" ], axis=1, inplace=False)
-    marsclean.drop([0])
-    mars_df2 =  marsclean[['Mars - Earth Comparison', 'Mars']]
-    mars_fact_html = mars_df2.to_html(header=False, index=False)
+    mars_df =  mars_df[['Mars - Earth Comparison', 'Mars']]
+    mars_fact_html = mars_df.to_html(header=False, index=False)
 
     # Mars Hemispheres
     mhurl = 'https://marshemispheres.com/'
